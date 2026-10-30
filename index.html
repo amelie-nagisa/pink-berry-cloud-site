@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8dce5">
+  <meta name="description" content="甘酸っぱさに、夢中。3種のベリーとヨーグルト、ふわふわホイップのご褒美ドリンク、PINK BERRY CLOUD。架空のブランドのポートフォリオサイトです。">
+  <title>PINK BERRY CLOUD｜甘酸っぱさに、夢中。</title>
+  <style>
+    /* Buildless, local-first LP. All images are the supplied original assets. */
+    :root {
+      --rose: #b32f60; --pink: #e54e84; --deep: #98264e;
+      --ink: #645058; --muted: #846c76; --paper: #fffafb; --pale: #fbe8ee;
+      --serif: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", Georgia, serif;
+      --sans: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+      --berry-photo: url("images/ピンクの果汁に舞うベリースプラッシュ.png");
+      --trio-photo: url("images/ベリー香るピンクデザート三重奏.png");
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: #f9e3eb; }
+    body { margin: 0; color: var(--ink); font: 15px/1.95 var(--sans); -webkit-font-smoothing: antialiased; }
+    button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+    button { font: inherit; cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button, input { color: inherit; }
+    button:focus-visible, a:focus-visible, [tabindex]:focus-visible { outline: 3px solid #8c3e81; outline-offset: 5px; }
+    h1[tabindex="-1"]:focus, h2[tabindex="-1"]:focus { outline: none; }
+    h1, h2, h3, p, figure { margin: 0; }
+    h1, h2, h3 { color: var(--rose); font-family: var(--serif); font-weight: 500; line-height: 1.65; }
+    p + p { margin-top: 1em; }
+    [hidden] { display: none !important; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+    .skip-link { position: fixed; z-index: 100; top: 8px; left: 8px; padding: 8px 16px; background: white; transform: translateY(-160%); }
+    .skip-link:focus { transform: none; }
+    .side { display: none; }
+    .lp { position: relative; width: 100%; max-width: 390px; margin-inline: auto; background: #fbe6ee; isolation: isolate; }
+    .lp-content { overflow: clip; }
+    section, footer { position: relative; scroll-margin-top: 20px; }
+    .inner { padding-inline: 26px; }
+    .eyebrow { color: var(--rose); font-family: Georgia, serif; font-size: 11px; letter-spacing: .2em; line-height: 1.7; }
+    .section-title { font-size: 26px; letter-spacing: .025em; text-align: center; }
+    .brand-text { font-family: Georgia, serif; color: var(--rose); letter-spacing: .15em; line-height: 1.35; }
+    .small-note { font-size: 11px; line-height: 1.9; color: var(--muted); }
+    .pill { display: inline-block; border: 1px solid #eeb4c8; padding: 3px 13px; color: var(--rose); border-radius: 30px; font-size: 11px; letter-spacing: .08em; background: #fff5f8b3; }
+    .btn { position: relative; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 54px; padding: 12px 15px; border: 1px solid transparent; border-radius: 40px; font-size: 14px; font-weight: 600; letter-spacing: .025em; line-height: 1.6; transition: transform .25s, box-shadow .25s, background .25s; }
+    .btn-primary { background: linear-gradient(155deg, #f07ca3 0%, #e7447f 65%, #d73570 100%); color: white; box-shadow: 0 6px 20px #c43a6d26, inset 0 2px 3px #ffffff50; }
+    .btn-secondary { border-color: #da6b93; background: #fff9fbd9; color: var(--rose); }
+    .btn .arrow { position: absolute; right: 21px; font: 20px Georgia, serif; font-weight: 400; }
+    .btn svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.5; flex: 0 0 auto; }
+    .btn:active { transform: scale(.98); }
+    .btn:disabled { cursor: default; opacity: .4; }
+    .button-stack { display: grid; gap: 10px; }
+    /* Cream-like waves are decorative, never clipping section content. */
+    .wave { display: block; width: 100%; height: 35px; color: #fff9fb; }
+    .wave path { fill: currentColor; }
+    .wave .wave-line { fill: none; stroke: #ffffffab; stroke-width: 5; }
+    .sparkle { position: absolute; width: 7px; height: 7px; background: #fff; transform: rotate(45deg); box-shadow: 0 0 15px 5px #fff7; border-radius: 30%; pointer-events: none; }
+    /* Photo crops keep the provided berries intact; no generated replacements. */
+    .float-decor { position: absolute; z-index: 2; pointer-events: none; }
+    .floater { display: block; animation: float 5.8s ease-in-out infinite; animation-play-state: paused; }
+    .in-view .floater, .side .floater { animation-play-state: running; }
+    .float-decor:nth-of-type(2n) .floater { animation-duration: 6.7s; animation-delay: -2s; }
+    .float-decor:nth-of-type(3n) .floater { animation-duration: 4.9s; animation-delay: -1s; }
+    .berry { width: 38px; height: 38px; border-radius: 50%; background-image: var(--berry-photo); background-repeat: no-repeat; box-shadow: 0 5px 12px #b12c5c16; }
+    .berry-blue { background-size: 184px 153px; background-position: -68px -15px; width: 35px; height: 35px; }
+    .berry-raspberry { background-size: 160px 133px; background-position: -39px -35px; width: 34px; height: 37px; border-radius: 48% 48% 46% 46%; }
+    .berry-strawberry { background-size: 148px 123px; background-position: -68px -37px; width: 43px; height: 45px; border-radius: 48% 52% 50% 55%; }
+    /* Transparent soap bubbles: faint colored rims and reflections, no cream shapes. */
+    .bubble { position: relative; width: var(--bubble-size, 58px); height: var(--bubble-size, 58px); border: 1px solid #ffffff91; border-radius: 50%; background: radial-gradient(ellipse at 28% 23%, #ffffffb3 0%, #ffffff38 8%, transparent 21%), radial-gradient(ellipse at 78% 83%, #d5dff429, transparent 42%), radial-gradient(circle at 45% 42%, transparent 54%, #ffffff18 66%, #f6c8df55 73%, #d8e9f254 80%, #ffffff6b 91%, transparent 100%); box-shadow: inset 2px 2px 5px #ffffff80, inset -2px -3px 6px #c5d6ee29, 0 2px 6px #b6618b08; }
+    .bubble::before, .bubble::after { content: ""; position: absolute; pointer-events: none; border-radius: 50%; }
+    .bubble::before { width: 38%; height: 19%; left: 15%; top: 13%; border-top: 2px solid #ffffffe0; transform: rotate(-37deg); filter: blur(.3px); }
+    .bubble::after { width: 19%; height: 9%; right: 13%; bottom: 15%; border-bottom: 1px solid #ffffffb3; transform: rotate(-36deg); }
+    .bubble-soft { --bubble-size: 46px; --bubble-duration: 11.4s; --bubble-sway: -9px; --bubble-rise: -23px; --bubble-delay: -4.7s; }
+    .bubble-large { --bubble-size: 68px; --bubble-duration: 13.2s; --bubble-sway: 11px; --bubble-rise: -35px; --bubble-delay: -8.1s; }
+    .bubble-light { --bubble-size: 55px; --bubble-duration: 9.6s; --bubble-sway: -7px; --bubble-rise: -28px; --bubble-delay: -2.3s; }
+    .float-decor .floater.bubble { animation: bubble-drift var(--bubble-duration, 11s) ease-in-out var(--bubble-delay, -3s) infinite; animation-play-state: paused; }
+    .in-view .float-decor .floater.bubble, .side .float-decor .floater.bubble { animation-play-state: running; }
+    @keyframes bubble-drift { 0%, 100% { transform: translate3d(0, 0, 0); } 28% { transform: translate3d(var(--bubble-sway, 8px), -13px, 0); } 55% { transform: translate3d(2px, var(--bubble-rise, -30px), 0); } 78% { transform: translate3d(calc(var(--bubble-sway, 8px) * -.55), -15px, 0); } }
+    @keyframes float { 0%, 100% { transform: translate3d(0, 0, 0) rotate(-3deg); } 50% { transform: translate3d(4px, -13px, 0) rotate(3deg); } }
+    /* Hero */
+    .hero { min-height: max(820px, 100svh); background: radial-gradient(ellipse at 15% 22%, #fffafbee 0%, transparent 43%), radial-gradient(ellipse at 90% 47%, #f6b9cf 0%, transparent 60%), linear-gradient(#fceaf0, #f8d6e3 78%, #fbe7ee); }
+    .site-header { height: 74px; display: flex; align-items: center; justify-content: space-between; padding: 16px 25px; position: relative; z-index: 6; }
+    .header-brand { font-size: 13px; letter-spacing: .15em; }
+    .header-brand small { display: block; text-align: center; letter-spacing: .35em; font-size: 8px; margin-top: 3px; }
+    .menu-toggle { width: 42px; height: 42px; display: grid; align-content: center; gap: 5px; padding: 10px; background: transparent; border: 0; color: var(--rose); }
+    .menu-toggle span { display: block; height: 1px; background: currentColor; width: 23px; transition: transform .25s; }
+    .menu-toggle[aria-expanded="true"] span:first-child { transform: translateY(3px) rotate(45deg); }
+    .menu-toggle[aria-expanded="true"] span:last-child { transform: translateY(-3px) rotate(-45deg); }
+    .site-nav { position: absolute; z-index: 5; top: 66px; left: 20px; right: 20px; padding: 20px; border: 1px solid #edb9cc; border-radius: 18px; background: #fffafbf7; box-shadow: 0 12px 30px #9a30562b; }
+    .site-nav a { display: block; padding: 10px; border-bottom: 1px solid #f4dce5; color: var(--rose); font-family: var(--serif); }
+    .site-nav a:last-child { border: 0; }
+    .hero-stage { position: relative; min-height: 568px; }
+    .hero-title { position: relative; z-index: 3; padding: 7px 24px 0; font-size: clamp(35px, 10.8vw, 43px); line-height: 1.5; letter-spacing: -.06em; text-shadow: 0 2px 16px #fff; }
+    .hero-title span { display: block; padding-left: 8px; font-size: 1.15em; }
+    .hero-sub { position: relative; z-index: 3; margin: 19px 0 0 27px; color: var(--rose); font-family: var(--serif); font-size: 16px; line-height: 1.85; letter-spacing: .015em; }
+    .hero-photo { position: absolute; z-index: 1; width: 330px; max-width: none; height: 495px; right: -5px; top: 91px; object-fit: contain; -webkit-mask-image: radial-gradient(ellipse 66% 49% at 50% 50%, #000 63%, transparent 100%); mask-image: radial-gradient(ellipse 66% 49% at 50% 50%, #000 63%, transparent 100%); }
+    .hero-description { position: relative; z-index: 3; width: 130px; margin: 23px 0 0 27px; font-size: 12px; line-height: 2; text-shadow: 0 1px 8px white; }
+    .hero-description p + p { margin-top: 10px; }
+    .limited-badge { position: relative; z-index: 3; display: flex; flex-direction: column; justify-content: center; width: 93px; height: 93px; margin: 23px 0 0 27px; border: 1px solid #e9a9c1; outline: 4px solid #fff5f780; border-radius: 50%; color: var(--rose); background: #fff6f7cc; text-align: center; font: 13px/1.7 var(--serif); transform: rotate(-8deg); }
+    .limited-badge small { font: 8px/1.5 Georgia, serif; letter-spacing: .08em; margin-top: 4px; }
+    .hero-script { position: absolute; z-index: 2; left: 128px; bottom: 3px; color: #c46a8b; font: italic 20px/1.4 Georgia, serif; transform: rotate(-10deg); }
+    .hero .d1 { right: 16px; top: 100px; }
+    .hero .d2 { right: 14px; top: 480px; transform: scale(.7); }
+    .hero .d3 { right: 22px; top: 578px; transform: scale(.65); }
+    .hero .sparkle { top: 390px; right: 18px; }
+    .hero-actions { position: relative; z-index: 4; padding: 12px 27px 25px; }
+    .hero-actions .btn-secondary { min-height: 44px; font-size: 12px; }
+    .hero-brandline { text-align: center; font-size: 10px; margin-top: 14px; }
+    .hero > .wave { position: absolute; bottom: -1px; }
+    /* Empathy */
+    .empathy { padding: 34px 26px 52px; background: radial-gradient(ellipse at 0% 65%, #fbe6ee 0%, transparent 55%), #fff9fb; }
+    .empathy h2 { font-size: 25px; text-align: center; line-height: 1.7; }
+    .check-list { list-style: none; margin: 24px 0 28px; padding: 0; display: grid; gap: 13px; font-size: 14px; line-height: 1.9; }
+    .check-list li { position: relative; padding-left: 27px; }
+    .check-list li::before { content: "✓"; position: absolute; left: 0; top: 3px; width: 18px; height: 18px; border-radius: 50%; background: #ed739c; color: white; text-align: center; font: 12px/18px var(--sans); }
+    .empathy-ending { text-align: center; }
+    .empathy-ending h3 { font-size: 22px; margin: 14px 0; }
+    .empathy-ending p { font-size: 14px; }
+    .empathy .wave { position: absolute; bottom: -1px; left: 0; color: #f9e0ea; transform: rotate(180deg); }
+    /* Product */
+    .product { padding: 24px 26px 52px; background: linear-gradient(#f9e0ea, #f9e2ec 72%, #f5dce6); }
+    .product h2 { text-align: center; font: 25px/1.4 Georgia, serif; letter-spacing: .025em; }
+    .product-tagline { text-align: center; color: var(--rose); font-size: 12px; margin-top: 8px; }
+    .product-visual { position: relative; display: flex; align-items: center; margin: 18px -14px 12px; min-height: 310px; }
+    .product-image { width: 224px; height: 336px; object-fit: contain; margin-left: -12px; }
+    .product-meta { position: relative; z-index: 3; margin-left: -16px; flex: 1; }
+    .price { color: var(--rose); font: 47px/1.3 Georgia, serif; letter-spacing: -.04em; white-space: nowrap; }
+    .price .yen { font-size: 29px; }
+    .price small { display: block; font: 11px/2 var(--sans); letter-spacing: .03em; }
+    .product-meta .pill { margin-top: 10px; padding-inline: 10px; }
+    .product-visual .d1 { right: 12px; top: 24px; transform: scale(.6); }
+    .product-copy { font-size: 14px; line-height: 2.1; }
+    .product .small-note { margin: 20px 0; }
+    /* Features. The shared background continues directly into the campaign. */
+    .features { padding: 24px 19px 0; background: linear-gradient(#f5dce6, #f5dce6 65%, #f9deea); }
+    .section-ornament { display: flex; align-items: center; justify-content: center; gap: 12px; color: #d58aa7; margin-bottom: 17px; }
+    .section-ornament::before, .section-ornament::after { content: ""; height: 1px; width: 38px; background: #e3adc2; }
+    .section-ornament span { display: block; width: 9px; height: 9px; border: 1px solid; border-radius: 50%; }
+    .features .section-title { font-size: 25px; }
+    .features .eyebrow { text-align: center; font-size: 9px; letter-spacing: .055em; margin-top: 10px; }
+    .feature-list { display: grid; gap: 23px; margin-top: 29px; }
+    .feature-card { position: relative; background: #fffbfd; border: 1px solid #f0b5cd; border-radius: 22px; padding: 10px; box-shadow: 0 10px 26px #a6406812; }
+    .feature-top { display: grid; grid-template-columns: 44% 1fr; gap: 16px; min-height: 230px; align-items: center; }
+    .feature-photo { position: relative; width: 100%; height: 235px; border-radius: 15px; overflow: hidden; background: #fae3ec; }
+    .feature-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .feature-photo.berry-photo img { object-position: 54% center; }
+    .feature-photo.trio-photo img { position: absolute; width: 420%; max-width: none; height: auto; top: 0; }
+    .feature-photo.yogurt-photo img { left: -160%; }
+    .feature-photo.cream-photo img { left: -300%; }
+    .feature-heading { padding-right: 4px; }
+    .feature-number { font: 24px Georgia, serif; color: #d85c8c; margin-bottom: 6px; }
+    .feature-heading h3 { font: 19px/1.45 Georgia, serif; overflow-wrap: anywhere; }
+    .feature-heading h3::after { content: ""; display: block; width: 42px; height: 1px; background: #e8a9c2; margin-top: 12px; }
+    .feature-lead { color: var(--rose); font: 16px/1.9 var(--serif); margin-top: 14px; }
+    .feature-body { padding: 20px 12px 16px; font-size: 14px; line-height: 2; }
+    .feature-body p + p { margin-top: .7em; }
+    .feature-tag { display: inline-block; font: 9px/1.5 Georgia, serif; letter-spacing: .08em; color: #b86485; background: #fae6ee; padding: 3px 10px; border-radius: 20px; margin-top: 16px; }
+    .feature-card:nth-child(2) .feature-photo { order: 2; }
+    .feature-card:nth-child(2) .feature-top { grid-template-columns: 1fr 44%; }
+    .feature-card:nth-child(2) .feature-heading { padding-left: 12px; padding-right: 0; }
+    .feature-card .float-decor { right: 11px; bottom: 5px; transform: scale(.45); transform-origin: right bottom; opacity: .85; }
+    .chapter-bridge { position: relative; height: 107px; display: grid; place-items: center; }
+    .chapter-bridge .section-ornament { margin: 0; }
+    .chapter-bridge .float-decor { left: 4px; top: 50px; transform: scale(.45); opacity: .8; }
+    /* Campaign: no hard background edge at the split of the two reference images. */
+    .campaign { padding: 13px 22px 36px; text-align: center; background: linear-gradient(#f9deea, #fbe4ed 62%, #fbe8ef); }
+    .campaign .campaign-kicker { color: var(--rose); font: 22px/1.7 var(--serif); letter-spacing: .08em; }
+    .campaign h2 { font-size: 27px; margin-top: 7px; letter-spacing: -.045em; white-space: nowrap; }
+    .campaign-launch { color: var(--rose); font: 12px/1.9 var(--serif); margin-top: 12px; }
+    .campaign-description { font-size: 14px; margin: 17px 0; }
+    .campaign-prize { color: var(--rose); font-family: var(--serif); margin: 15px 0; }
+    .campaign-prize strong { font: 50px/1 Georgia, serif; padding-inline: 4px; }
+    .campaign-prize .prize-detail { display: block; font-size: 16px; line-height: 1.8; margin-top: 9px; }
+    .ticket { margin: 18px -12px 22px; }
+    .ticket img { width: 100%; height: auto; border-radius: 8px; box-shadow: 0 8px 23px #b8457221; }
+    .campaign .small-note { margin-top: 14px; }
+    .campaign .d1 { right: 9px; top: -2px; transform: scale(.65); }
+    .campaign .wave { position: absolute; bottom: -1px; left: 0; color: #fcf0f5; }
+    .campaign-info { padding: 22px 20px 42px; background: linear-gradient(#fcf0f5, #fbe5ee); }
+    .info-card { background: #fffcfde6; border-radius: 23px; padding: 28px 22px 24px; border: 1px solid #fff; box-shadow: 0 5px 25px #b7517b09; }
+    .info-card h2 { text-align: center; font: 15px/1.6 Georgia, serif; letter-spacing: .11em; }
+    .info-card dl { margin: 24px 0 20px; }
+    .info-card dl > div { border-bottom: 1px solid #f1dce5; padding: 13px 0; }
+    .info-card dl > div:first-child { padding-top: 0; }
+    .info-card dt { color: var(--rose); font-weight: 600; font-size: 12px; letter-spacing: .05em; margin-bottom: 5px; }
+    .info-card dd { margin: 0; font-size: 14px; line-height: 1.9; }
+    .info-card .small-note { border-top: 1px dashed #df9fb8; padding-top: 17px; }
+    .campaign-steps { text-align: center; padding: 6px 24px 45px; background: linear-gradient(#fbe5ee, #f8dce8); }
+    .campaign-steps h2 { font-size: 24px; }
+    .steps { display: grid; gap: 12px; padding: 0; margin: 24px 0 17px; list-style: none; }
+    .step { display: flex; align-items: center; gap: 18px; text-align: left; background: #fffafbe6; border: 1px solid white; border-radius: 18px; padding: 19px 17px; }
+    .step-number { flex: 0 0 60px; height: 60px; border-radius: 50%; border: 1px solid #edb0c8; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fcebf2; color: var(--rose); font: 25px/1.1 Georgia, serif; }
+    .step-number small { font-size: 10px; letter-spacing: .1em; margin-bottom: 3px; }
+    .step p { font-size: 14px; line-height: 1.8; }
+    .step svg { width: 22px; height: 22px; stroke: #cb507c; fill: none; stroke-width: 1.5; display: block; margin-bottom: 7px; }
+    .steps-result { display: inline-block; font: 18px/1.9 var(--serif); color: var(--rose); border: 1px dashed #e49ab6; border-radius: 30px; padding: 5px 17px; }
+    .campaign-steps .small-note { margin: 13px 0 23px; }
+    .campaign-steps > .wave { position: absolute; bottom: -1px; left: 0; color: #fff7fa; }
+    /* Last CTA and footer */
+    .last-cta { text-align: center; padding: 30px 27px 35px; background: linear-gradient(#fff7fa, #f9deea); }
+    .last-cta h2 { font-size: 28px; line-height: 1.8; }
+    .last-visual { position: relative; height: 370px; margin: 0 -15px 7px; }
+    .last-visual > img { position: absolute; width: 290px; height: 435px; object-fit: contain; top: -30px; left: 0; right: 0; margin-inline: auto; -webkit-mask-image: radial-gradient(ellipse 68% 47% at 50% 49%, black 65%, transparent 100%); mask-image: radial-gradient(ellipse 68% 47% at 50% 49%, black 65%, transparent 100%); }
+    .last-visual .d1 { left: 8px; top: 150px; transform: scale(.75); }
+    .last-visual .d2 { right: 8px; top: 230px; transform: scale(.75); }
+    .last-visual .d3 { right: 20px; top: 45px; transform: scale(.75); }
+    .last-copy { font-size: 14px; line-height: 2.2; }
+    .last-brand { margin-top: 22px; font-size: 22px; letter-spacing: .05em; }
+    .last-cta .btn { margin-top: 24px; }
+    .last-cta .eyebrow { margin-top: 25px; font-size: 10px; letter-spacing: .15em; }
+    .footer { background: linear-gradient(#f9deea, #fcecf2); padding: 24px 27px 35px; text-align: center; }
+    .footer .brand-text { font-size: 18px; }
+    .footer .eyebrow { font-size: 9px; margin-top: 10px; letter-spacing: .12em; }
+    .footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px 21px; margin: 22px 0; font: 11px/2 Georgia, serif; color: var(--rose); letter-spacing: .08em; }
+    .footer-nav a { padding: 8px 0; }
+    .footer small { display: block; margin-top: 22px; font-size: 10px; color: #967482; letter-spacing: .07em; }
+    .top-link { display: inline-flex; align-items: center; justify-content: center; width: 45px; height: 45px; border: 1px solid #df9cb6; border-radius: 50%; margin: 22px 0 0; color: var(--rose); font-size: 22px; }
+    /* Shared accessible modal shell */
+    dialog { color: var(--ink); width: min(420px, calc(100% - 28px)); max-height: calc(100svh - 32px); margin: auto; padding: 0; overflow: auto; overscroll-behavior: contain; border: 1px solid #f4d2df; border-radius: 25px; background: #fffbfd; box-shadow: 0 30px 90px #57223744; }
+    dialog[open] { animation: modal-in .3s ease-out; }
+    dialog::backdrop { background: #48273575; backdrop-filter: blur(5px); }
+    .dialog-content { padding: 36px 26px 27px; }
+    .dialog-close { position: absolute; z-index: 2; top: 8px; right: 8px; width: 44px; height: 44px; border: 0; background: transparent; color: var(--rose); font: 27px/1 Georgia, serif; }
+    dialog h2 { font-size: 22px; padding-right: 10px; }
+    dialog .eyebrow { margin-bottom: 12px; }
+    .demo-note { font-size: 12px; line-height: 1.9; margin-top: 10px; }
+    .order-product { display: flex; gap: 12px; align-items: center; margin: 20px 0 15px; background: linear-gradient(125deg, #fceaf1, #fff); border-radius: 15px; padding: 5px 13px 5px 0; }
+    .order-product img { width: 102px; height: 153px; object-fit: contain; }
+    .order-product h3 { font: 17px/1.4 Georgia, serif; letter-spacing: .04em; }
+    .order-product p { color: var(--rose); font-size: 14px; margin-top: 10px; }
+    .quantity-row { display: flex; justify-content: space-between; align-items: center; padding: 13px 0; border-bottom: 1px solid #eed5df; }
+    .quantity-controls { display: flex; align-items: center; gap: 9px; }
+    .quantity-controls button { width: 44px; height: 44px; border: 1px solid #e7abc2; background: white; border-radius: 50%; color: var(--rose); font-size: 22px; }
+    .quantity-controls output { min-width: 30px; text-align: center; font: 22px Georgia, serif; }
+    .total-row { display: flex; justify-content: space-between; align-items: baseline; padding: 16px 0 22px; }
+    .total-row output { color: var(--rose); font: 28px Georgia, serif; }
+    .total-row small { font: 11px var(--sans); }
+    .confirmation-summary { margin: 22px 0; padding: 18px; background: #fceaf1; border-radius: 15px; }
+    .confirmation-summary div { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; font-size: 14px; }
+    .confirmation-summary dt { flex: 0 0 auto; }
+    .confirmation-summary dd { margin: 0; text-align: right; }
+    .confirmation-summary div:first-child { display: block; }
+    .confirmation-summary div:first-child dd { text-align: left; margin-top: 5px; color: var(--rose); }
+    .campaign-dialog { text-align: center; }
+    .gift-icon { width: 50px; height: 50px; fill: none; stroke: #ce5a87; stroke-width: 1.1; margin: 0 auto 15px; }
+    .campaign-dialog h2 { font: 23px/1.5 Georgia, serif; padding: 0; letter-spacing: .02em; }
+    .campaign-dialog h3 { font-size: 17px; margin: 20px 0 8px; }
+    .campaign-dialog p { font-size: 13px; }
+    .modal-steps { text-align: left; background: #fcecf3; padding: 15px; border-radius: 14px; margin: 12px 0 20px; font-size: 13px; line-height: 2; }
+    .modal-steps span { color: var(--rose); font: 11px Georgia, serif; margin-right: 9px; }
+    .campaign-dialog .btn { margin-top: 23px; }
+    @keyframes modal-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+    /* Enhancement only: content is visible without JavaScript. */
+    .motion-ready .reveal { opacity: 0; transform: translateY(17px); transition: opacity .9s ease, transform .9s cubic-bezier(.2,.65,.3,1); }
+    .motion-ready .reveal.is-visible { opacity: 1; transform: none; }
+    .motion-ready .reveal-delay { transition-delay: .12s; }
+    @media (hover: hover) {
+      .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 9px 24px #b52b6036, inset 0 2px 3px #ffffff50; }
+      .btn-secondary:hover { background: #fce5ee; }
+      .footer-nav a:hover, .side-nav a:hover { color: #de5b89; }
+    }
+    @media (max-width: 350px) {
+      .inner { padding-inline: 21px; }
+      .site-header { padding-inline: 21px; }
+      .hero-title { padding-left: 20px; }
+      .hero-photo { width: 285px; height: 427px; right: -5px; top: 123px; }
+      .hero-sub, .hero-description { margin-left: 22px; }
+      .hero-sub { font-size: 14px; }
+      .hero-description { width: 120px; font-size: 12px; letter-spacing: -.03em; }
+      .limited-badge { margin-left: 23px; }
+      .hero-stage { min-height: 565px; }
+      .hero-actions { padding-inline: 22px; }
+      .section-title { font-size: 23px; }
+      .product { padding-inline: 22px; }
+      .product h2 { font-size: 22px; }
+      .product-image { width: 195px; height: 293px; }
+      .price { font-size: 41px; }
+      .feature-top { gap: 12px; grid-template-columns: 42% 1fr; }
+      .feature-card:nth-child(2) .feature-top { grid-template-columns: 1fr 42%; }
+      .feature-photo { height: 225px; }
+      .feature-photo.trio-photo img { width: 560%; }
+      .feature-photo.yogurt-photo img { left: -230%; }
+      .feature-photo.cream-photo img { left: -417%; }
+      .feature-heading h3 { font-size: 17px; }
+      .feature-lead { font-size: 15px; }
+      .feature-body { padding-inline: 9px; }
+      .campaign { padding-inline: 18px; }
+      .campaign h2 { font-size: 23px; }
+      .campaign-steps { padding-inline: 20px; }
+      .campaign-steps h2 { font-size: 21px; }
+      .last-cta h2 { font-size: 25px; }
+      .dialog-content { padding-inline: 20px; }
+      dialog h2 { font-size: 20px; }
+    }
+    @media (min-width: 1024px) {
+      html, body { height: 100%; overflow: hidden; }
+      body { background: radial-gradient(ellipse at 6% 75%, #fff7fb 0%, transparent 45%), radial-gradient(ellipse at 90% 10%, #fff7fb 0%, transparent 52%), linear-gradient(120deg, #f2c6d8, #f9e1eb 42%, #efc2d5); }
+      .lp { height: 100dvh; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; box-shadow: 0 0 55px #a437641a; }
+      .lp::-webkit-scrollbar { display: none; }
+      .side { display: flex; position: fixed; top: 0; bottom: 0; width: calc((100% - 390px) / 2); align-items: center; justify-content: center; overflow: clip; }
+      .side-left { left: 0; }
+      .side-right { right: 0; }
+      .side::before { content: ""; position: absolute; width: 370px; height: 370px; border: 1px solid #ffffff80; border-radius: 50%; pointer-events: none; }
+      .side-left::before { bottom: -180px; left: -120px; box-shadow: 0 0 0 60px #ffffff19, 0 0 0 120px #ffffff10; }
+      .side-right::before { top: -180px; right: -180px; box-shadow: 0 0 0 70px #ffffff19, 0 0 0 140px #ffffff10; }
+      .side-inner { position: relative; z-index: 2; width: min(270px, calc(100% - 55px)); }
+      .side-left .side-inner { padding-bottom: 10px; }
+      .side-kicker { font: 11px/1.8 Georgia, serif; color: var(--rose); letter-spacing: .24em; margin-bottom: 25px; }
+      .side-wordmark { margin: 0; font: clamp(38px, 4.6vw, 72px)/1.04 Georgia, serif; color: var(--rose); letter-spacing: -.045em; }
+      .side-wordmark span { display: block; }
+      .side-rule { display: block; width: 42px; height: 1px; background: #c77a9b; margin: 29px 0 21px; }
+      .side-tagline { color: var(--rose); font: 13px/2.2 Georgia, serif; letter-spacing: .12em; }
+      .side-japanese { font: 18px/1.8 var(--serif); color: var(--rose); margin-top: 21px; }
+      .side-nav { display: flex; gap: 22px; margin-top: 37px; font: 10px/1.8 Georgia, serif; letter-spacing: .14em; color: #9f5775; }
+      .side-footnote { position: absolute; bottom: 24px; left: 30px; right: 25px; font: 9px/1.8 var(--sans); color: #a17186; letter-spacing: .06em; }
+      .side-left .d1 { top: 12%; left: 15%; transform: scale(.85); }
+      .side-left .d2 { bottom: 15%; right: 17%; transform: scale(1.2); }
+      .side-left .d3 { top: 22%; right: 13%; transform: scale(.6); }
+      .side-right .side-inner { text-align: center; }
+      .side-right .side-kicker { margin-bottom: 10px; }
+      .side-product-name { font: 21px/1.5 Georgia, serif; color: var(--rose); letter-spacing: .07em; }
+      .side-product-image { width: 146px; height: 219px; object-fit: contain; margin: 9px auto 4px; }
+      .side-price { font: 31px Georgia, serif; color: var(--rose); }
+      .side-price small { font: 10px var(--sans); }
+      .side-campaign-link { display: block; padding: 19px 12px; margin-top: 27px; border-top: 1px solid #dca1ba; border-bottom: 1px solid #dca1ba; color: var(--rose); }
+      .side-campaign-link .eyebrow { font-size: 10px; }
+      .side-campaign-link strong { display: block; font: 16px/1.8 var(--serif); margin: 8px 0; }
+      .side-campaign-link small { font-size: 10px; letter-spacing: .06em; }
+      .side-right .d1 { left: 12%; top: 18%; transform: scale(.9); }
+      .side-right .d2 { right: 12%; bottom: 13%; transform: scale(.7); }
+      .side-right .d3 { right: 15%; top: 39%; transform: scale(.7); }
+      .side-scroll-hint { position: absolute; bottom: 28px; font: 9px/1.5 Georgia, serif; letter-spacing: .18em; color: #a86d86; }
+      .side-scroll-hint::after { content: ""; display: block; width: 1px; height: 24px; background: #c28ca5; margin: 9px auto 0; }
+    }
+    @media (max-height: 720px) and (min-width: 1024px) {
+      .side-product-image { width: 110px; height: 165px; }
+      .side-campaign-link { margin-top: 18px; padding-block: 12px; }
+      .side-scroll-hint { display: none; }
+      .side-left .d1 { top: 7%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .motion-ready .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">本文へ移動</a>
+  <svg class="sr-only" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
+    <symbol id="icon-cart" viewBox="0 0 24 24"><path d="M2 3h3l3 12h11l3-9H6M8 18h11"/><circle cx="9" cy="21" r="1"/><circle cx="18" cy="21" r="1"/></symbol>
+    <symbol id="icon-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="icon-heart" viewBox="0 0 24 24"><path d="M12 21S2 15 2 8.5C2 3 8 1 12 6c4-5 10-3 10 2.5C22 15 12 21 12 21Z"/></symbol>
+    <symbol id="icon-gift" viewBox="0 0 48 48"><path d="M7 23h34v19H7zM4 15h40v8H4zM24 15v27M24 15C11 16 10 5 16 5c5 0 8 10 8 10Zm0 0C37 16 38 5 32 5c-5 0-8 10-8 10Z"/></symbol>
+  </defs></svg>
+
+  <aside class="side side-left" aria-label="ブランド紹介">
+    <span class="float-decor d1" aria-hidden="true"><span class="floater berry berry-strawberry"></span></span>
+    <span class="float-decor d2" aria-hidden="true"><span class="floater bubble bubble-large"></span></span>
+    <span class="float-decor d3" aria-hidden="true"><span class="floater berry berry-blue"></span></span>
+    <div class="side-inner">
+      <p class="side-kicker">A LITTLE TREAT, JUST FOR YOU.</p>
+      <p class="side-wordmark"><span>PINK</span><span>BERRY</span><span>CLOUD</span></p>
+      <span class="side-rule" aria-hidden="true"></span>
+      <p class="side-tagline">SWEET BERRIES.<br>FLUFFY CLOUDS.</p>
+      <p class="side-japanese">甘酸っぱさに、夢中。</p>
+      <nav class="side-nav" aria-label="ブランドメニュー"><a href="#product">MENU</a><a href="#features">STORY</a><a href="#campaign">CAMPAIGN</a></nav>
+    </div>
+    <p class="side-footnote">© 2026 PINK BERRY CLOUD<br>架空のブランドのポートフォリオサイトです。</p>
+  </aside>
+
+  <main class="lp" id="main-content" tabindex="-1" aria-label="PINK BERRY CLOUD ランディングページ">
+    <div class="lp-content">
+      <section class="hero" id="hero" aria-labelledby="hero-title">
+        <header class="site-header">
+          <a class="brand-text header-brand" href="#hero" aria-label="PINK BERRY CLOUD トップ">PINK BERRY CLOUD<small>LIMITED SEASON DRINK</small></a>
+          <button class="menu-toggle" type="button" aria-label="メニューを開く" aria-controls="site-nav" aria-expanded="false"><span></span><span></span></button>
+        </header>
+        <nav class="site-nav" id="site-nav" aria-label="ページメニュー" hidden><a href="#product">PINK BERRY CLOUDについて</a><a href="#features">おいしさの秘密</a><a href="#campaign">プレゼントキャンペーン</a><a href="#campaign-info">キャンペーン概要</a></nav>
+        <div class="hero-stage">
+          <h1 class="hero-title" id="hero-title">甘酸っぱさに、<span>夢中。</span></h1>
+          <img class="hero-photo" src="images/ピンクベリー雲カフェのきらめき.png" width="1024" height="1536" fetchpriority="high" alt="3種のベリーと真っ白なホイップが彩るピンク色のPINK BERRY CLOUD">
+          <p class="hero-sub">ふわっと甘酸っぱい、<br>しあわせなひとくち。</p>
+          <div class="hero-description"><p>3種のベリーと、<br>爽やかなヨーグルト。<br>雲のような、<br>ふわふわホイップ。</p><p>甘酸っぱくて、<br>まろやかで、<br>心ときめく。<br>ピンク色のご褒美<br>ドリンク、新登場。</p></div>
+          <p class="limited-badge">期間限定<br>販売<small>PINK BERRY<br>CLOUD</small></p>
+          <span class="hero-script" aria-hidden="true">Berry in the Clouds</span>
+        </div>
+        <span class="float-decor d1" aria-hidden="true"><span class="floater berry berry-blue"></span></span>
+        <span class="float-decor d2" aria-hidden="true"><span class="floater berry berry-raspberry"></span></span>
+        <span class="float-decor d3" aria-hidden="true"><span class="floater bubble bubble-soft"></span></span>
+        <span class="sparkle" aria-hidden="true"></span>
+        <div class="hero-actions"><div class="button-stack"><button class="btn btn-primary" type="button" data-open="order"><svg aria-hidden="true"><use href="#icon-cart"/></svg>モバイルオーダーする<span class="arrow" aria-hidden="true">→</span></button><a class="btn btn-secondary" href="#features">おいしさの秘密を知る <span aria-hidden="true">↓</span></a></div><p class="brand-text hero-brandline">PINK BERRY CLOUD</p></div>
+        <svg class="wave" viewBox="0 0 390 35" preserveAspectRatio="none" aria-hidden="true"><path d="M0 12C75-15 110 45 207 23S331 4 390 11V35H0Z"/><path class="wave-line" d="M0 5C75-22 110 38 207 16S331-3 390 4"/></svg>
+      </section>
+
+      <section class="empathy" id="empathy" aria-labelledby="empathy-title">
+        <h2 class="reveal" id="empathy-title">こんなドリンク、<br>待ってなかった？</h2>
+        <ul class="check-list reveal"><li>甘いだけじゃなく、爽やかさも楽しみたい。</li><li>ベリーの甘酸っぱさに、ときめきたい。</li><li>ふわふわのホイップがのった、かわいい一杯が好き。</li><li>思わず写真を撮りたくなるような、特別感が欲しい。</li><li>頑張った自分に、ちょっとしたご褒美をあげたい。</li></ul>
+        <div class="empathy-ending reveal"><span class="pill">そんなあなたに。</span><h3>甘酸っぱさに、<br>夢中になる一杯を。</h3><p>PINK BERRY CLOUDが、<br>何気ない一日を、<br>心ときめくひとときに変えます。</p></div>
+        <svg class="wave" viewBox="0 0 390 35" preserveAspectRatio="none" aria-hidden="true"><path d="M0 12C75-15 110 45 207 23S331 4 390 11V35H0Z"/></svg>
+      </section>
+
+      <section class="product" id="product" aria-labelledby="product-title">
+        <div class="reveal"><h2 id="product-title">PINK BERRY CLOUD</h2><p class="product-tagline">3種のベリーとヨーグルトのご褒美ドリンク</p></div>
+        <div class="product-visual reveal"><img class="product-image" src="images/ピンクベリークラウドフラッペ.png" width="1024" height="1536" loading="lazy" alt="ベリーの果肉、ヨーグルト、ホイップが重なった透明カップのドリンク"><div class="product-meta"><p class="price"><span class="yen">¥</span>680<small>（税込）</small></p><p><span class="pill">期間限定</span><br><span class="pill">数量限定</span></p></div><span class="float-decor d1" aria-hidden="true"><span class="floater bubble bubble-light"></span></span></div>
+        <div class="product-copy reveal"><p>ストロベリー、ラズベリー、ブルーベリー。<br>3種のベリーの甘酸っぱさに、<br>ヨーグルトの爽やかさをプラス。</p><p>カップの上には、雲のようなふわふわホイップ。艶やかなベリーソースとフルーツが彩る、見た目にも心ときめくピンク色の一杯。</p><p>甘さと酸味、まろやかさが絶妙に重なり合う。<br>ひと口飲めば、もうひと口飲みたくなる。</p></div>
+        <p class="small-note">※価格・販売期間・販売場所はポートフォリオ用の仮設定です。</p>
+        <button class="btn btn-primary" type="button" data-open="order"><svg aria-hidden="true"><use href="#icon-cart"/></svg>モバイルオーダーする<span class="arrow" aria-hidden="true">→</span></button>
+      </section>
+
+      <section class="features" id="features" aria-labelledby="features-title">
+        <div class="section-ornament" aria-hidden="true"><span></span></div>
+        <h2 class="section-title reveal" id="features-title">PINK BERRY CLOUDが<br>特別な理由</h2>
+        <p class="eyebrow reveal">TRIPLE BERRY × YOGURT × FLUFFY CREAM</p>
+        <div class="feature-list">
+          <article class="feature-card" aria-labelledby="berry-title"><div class="feature-top"><figure class="feature-photo berry-photo reveal"><img src="images/ピンクの果汁に舞うベリースプラッシュ.png" width="1374" height="1145" loading="lazy" alt="みずみずしいストロベリー、ラズベリー、ブルーベリーとベリーソース"></figure><div class="feature-heading reveal"><p class="feature-number">01.</p><h3 id="berry-title">TRIPLE<br>BERRY</h3><p class="feature-lead">3種のベリーが織りなす、甘酸っぱい魔法。</p></div></div><div class="feature-body reveal"><p>ストロベリー、ラズベリー、ブルーベリー。3種のベリーが重なり合い、華やかな甘酸っぱさが口いっぱいに広がります。</p><p>甘さの中に感じる、きゅんとするような酸味。ベリー好きにはたまらない、果実感あふれる味わいです。</p><span class="feature-tag">JUICY &amp; SWEET</span></div></article>
+          <article class="feature-card" aria-labelledby="yogurt-title"><div class="feature-top"><figure class="feature-photo trio-photo yogurt-photo reveal"><img src="images/ベリー香るピンクデザート三重奏.png" width="1678" height="937" loading="lazy" alt="ベリーと溶け合う、なめらかな白いヨーグルト"></figure><div class="feature-heading reveal"><p class="feature-number">02.</p><h3 id="yogurt-title">YOGURT<br>FRESHNESS</h3><p class="feature-lead">爽やかさと、<br>まろやかさの<br>絶妙なバランス。</p></div></div><div class="feature-body reveal"><p>ベリーの甘酸っぱさを引き立てる、ヨーグルトの爽やかな味わい。フルーティーな風味と、まろやかな口当たりが心地よく溶け合います。</p><p>甘いだけじゃない、すっきりとした後味。何度でも飲みたくなる、おいしさの秘密です。</p><span class="feature-tag">FRESH &amp; MELLOW</span></div><span class="float-decor" aria-hidden="true"><span class="floater bubble bubble-large"></span></span></article>
+          <article class="feature-card" aria-labelledby="cream-title"><div class="feature-top"><figure class="feature-photo trio-photo cream-photo reveal"><img src="images/ベリー香るピンクデザート三重奏.png" width="1678" height="937" loading="lazy" alt="ベリーソースをまとった、雲のようなホイップクリーム"></figure><div class="feature-heading reveal"><p class="feature-number">03.</p><h3 id="cream-title">FLUFFY<br>CREAM</h3><p class="feature-lead">雲のようにふわふわ、やさしい甘さ。</p></div></div><div class="feature-body reveal"><p>ドリンクの上にふんわりと広がる、真っ白なホイップクリーム。ベリーソースが彩る、ピンクとホワイトの美しいコントラスト。</p><p>ふわっとした甘さがベリーの酸味を包み込み、ひと口ごとに幸せな気分に。見た目も味わいも楽しめる、特別なご褒美です。</p><span class="feature-tag">SOFT AS A CLOUD</span></div><span class="float-decor" aria-hidden="true"><span class="floater bubble bubble-soft"></span></span></article>
+        </div>
+        <div class="chapter-bridge" aria-hidden="true"><div class="section-ornament"><span></span></div><span class="float-decor"><span class="floater bubble bubble-light"></span></span></div>
+      </section>
+
+      <section class="campaign" id="campaign" aria-labelledby="campaign-title">
+        <span class="float-decor d1" aria-hidden="true"><span class="floater berry berry-raspberry"></span></span>
+        <div class="reveal"><p class="campaign-kicker">ふわっと、しあわせ。</p><h2 id="campaign-title">プレゼントキャンペーン</h2><p class="campaign-launch">PINK BERRY CLOUD 新発売記念！</p></div>
+        <p class="campaign-description reveal">甘酸っぱいベリーと、<br>ふわふわホイップの幸せを、あなたにも。</p>
+        <p class="campaign-prize reveal">抽選で<strong>100</strong>名様に<span class="prize-detail">PINK BERRY CLOUD<br>無料ドリンクチケットをプレゼント♡</span></p>
+        <figure class="ticket reveal"><img src="images/ピンクベリークラウド 無料ドリンクチケット.png" width="1775" height="886" loading="lazy" alt="PINK BERRY CLOUDのオリジナル無料ドリンクチケット。抽選で100名様にプレゼントする架空の企画。チケットはサンプルで実際の利用はできません。"></figure>
+        <p class="campaign-description reveal">公式Instagramのフォロー＆<br>対象投稿への「いいね」で応募完了！</p>
+        <button class="btn btn-primary" type="button" data-open="campaign"><svg aria-hidden="true"><use href="#icon-instagram"/></svg>Instagramで応募する<span class="arrow" aria-hidden="true">→</span></button>
+        <p class="small-note">※架空のキャンペーンです。ボタンから応募方法のデモをご覧いただけます。実際の応募受付は行いません。</p>
+        <svg class="wave" viewBox="0 0 390 35" preserveAspectRatio="none" aria-hidden="true"><path d="M0 12C75-15 110 45 207 23S331 4 390 11V35H0Z"/><path class="wave-line" d="M0 5C75-22 110 38 207 16S331-3 390 4"/></svg>
+      </section>
+
+      <section class="campaign-info" id="campaign-info" aria-labelledby="info-title"><div class="info-card reveal"><div class="section-ornament" aria-hidden="true"><span></span></div><h2 id="info-title">CAMPAIGN INFORMATION</h2><dl><div><dt>キャンペーン名</dt><dd>ふわっと、しあわせ。<br>プレゼントキャンペーン</dd></div><div><dt>応募期間</dt><dd><time datetime="2026-11-01">2026年11月1日（日）</time>〜<br><time datetime="2026-11-30">11月30日（月）</time></dd></div><div><dt>プレゼント内容</dt><dd>PINK BERRY CLOUD<br>無料ドリンクチケット 1枚</dd></div><div><dt>当選人数</dt><dd>抽選で100名様</dd></div><div><dt>応募方法</dt><dd>PINK BERRY CLOUD公式Instagramをフォローし、対象のキャンペーン投稿に「いいね」する。</dd></div><div><dt>当選発表</dt><dd>当選者の方へInstagramのDMにてご連絡する想定です。</dd></div></dl><p class="small-note">※本キャンペーンはポートフォリオ用の架空の企画です。実際の応募受付・抽選・賞品提供は行いません。</p></div></section>
+
+      <section class="campaign-steps" id="campaign-steps" aria-labelledby="steps-title"><h2 class="reveal" id="steps-title">応募はかんたん2ステップ</h2><ol class="steps"><li class="step reveal"><div class="step-number"><small>STEP</small>01</div><div><svg aria-hidden="true"><use href="#icon-instagram"/></svg><p>PINK BERRY CLOUD<br>公式Instagramをフォロー。</p></div></li><li class="step reveal reveal-delay"><div class="step-number"><small>STEP</small>02</div><div><svg aria-hidden="true"><use href="#icon-heart"/></svg><p>キャンペーン対象投稿に<br>「いいね」。</p></div></li></ol><p class="steps-result reveal">これで応募条件達成！</p><p class="small-note">当選者の方にはInstagramのDMで<br>ご連絡する想定です。<br>※実際の応募・抽選は行わないデモ企画です。</p><button class="btn btn-primary" type="button" data-open="campaign"><svg aria-hidden="true"><use href="#icon-instagram"/></svg>Instagramで応募する<span class="arrow" aria-hidden="true">→</span></button><svg class="wave" viewBox="0 0 390 35" preserveAspectRatio="none" aria-hidden="true"><path d="M0 12C75-15 110 45 207 23S331 4 390 11V35H0Z"/><path class="wave-line" d="M0 5C75-22 110 38 207 16S331-3 390 4"/></svg></section>
+
+      <section class="last-cta" id="last-cta" aria-labelledby="last-title"><h2 class="reveal" id="last-title">今日の気分に、<br>ピンクのご褒美を。</h2><div class="last-visual"><img class="reveal" src="images/ピンクベリー雲カフェのきらめき.png" width="1024" height="1536" loading="lazy" alt="ベリーとホイップをたっぷり重ねたPINK BERRY CLOUD"><span class="float-decor d1" aria-hidden="true"><span class="floater bubble bubble-large"></span></span><span class="float-decor d2" aria-hidden="true"><span class="floater berry berry-strawberry"></span></span><span class="float-decor d3" aria-hidden="true"><span class="floater berry berry-blue"></span></span></div><div class="last-copy reveal"><p>甘酸っぱい3種のベリーと、<br>ヨーグルトの爽やかさ。<br>雲のようなふわふわホイップを重ねて。</p><p>甘くて、爽やかで、もうひと口飲みたくなる。<br>いつもの一日を、ちょっと幸せな一日に。</p><p class="brand-text last-brand">PINK BERRY CLOUD</p><p>この季節だけの、とっておきの一杯を。</p></div><button class="btn btn-primary" type="button" data-open="order"><svg aria-hidden="true"><use href="#icon-cart"/></svg>モバイルオーダーする<span class="arrow" aria-hidden="true">→</span></button><p class="eyebrow">SWEET BERRIES. FLUFFY CLOUDS.</p></section>
+
+      <footer class="footer" id="footer"><div class="section-ornament" aria-hidden="true"><span></span></div><p class="brand-text">PINK BERRY CLOUD</p><p class="eyebrow">SWEET BERRIES. FLUFFY CLOUDS.</p><nav class="footer-nav" aria-label="フッターメニュー"><a href="#hero">TOP</a><a href="#product">MENU</a><a href="#features">STORY</a><a href="#campaign">CAMPAIGN</a></nav><p class="small-note">本サイトはデザイン・Web制作のポートフォリオとして制作した架空のブランド・キャンペーンサイトです。</p><p class="small-note">実際の商品販売、注文受付、キャンペーン応募、抽選、賞品提供は行っておりません。</p><a class="top-link" href="#hero" aria-label="ページトップへ戻る">↑</a><small>© 2026 PINK BERRY CLOUD</small></footer>
+    </div>
+  </main>
+
+  <aside class="side side-right" aria-label="期間限定メニューとキャンペーン">
+    <span class="float-decor d1" aria-hidden="true"><span class="floater bubble bubble-soft"></span></span><span class="float-decor d2" aria-hidden="true"><span class="floater berry berry-raspberry"></span></span><span class="float-decor d3" aria-hidden="true"><span class="floater berry berry-blue"></span></span>
+    <div class="side-inner"><p class="side-kicker">LIMITED MENU</p><p class="side-product-name">PINK BERRY<br>CLOUD</p><img class="side-product-image" src="images/ピンクベリークラウドフラッペ.png" width="1024" height="1536" alt=""><p class="side-price">¥680 <small>（税込）</small></p><a class="side-campaign-link" href="#campaign"><span class="eyebrow">SPECIAL CAMPAIGN</span><strong>ふわっと、しあわせ。<br>プレゼントキャンペーン</strong><small>2026.11.01 — 11.30　→</small></a></div><span class="side-scroll-hint" aria-hidden="true">SCROLL TO DISCOVER</span>
+  </aside>
+
+  <dialog id="order-dialog" aria-labelledby="order-title" aria-describedby="order-description"><button class="dialog-close" type="button" data-close aria-label="注文デモを閉じる">×</button><div class="dialog-content"><p class="eyebrow">YOUR LITTLE PINK TREAT</p><h2 id="order-title" tabindex="-1">モバイルオーダー体験（デモ）</h2><p class="demo-note" id="order-description">こちらはポートフォリオ用のデモ画面です。<br>実際の商品注文や決済は行われません。</p><div id="order-edit"><div class="order-product"><img src="images/ピンクベリークラウドフラッペ.png" width="1024" height="1536" alt="PINK BERRY CLOUD"><div><h3>PINK BERRY<br>CLOUD</h3><p>¥680（税込）</p></div></div><div class="quantity-row"><span id="quantity-label">数量</span><div class="quantity-controls" role="group" aria-labelledby="quantity-label"><button type="button" id="quantity-minus" aria-label="数量を1減らす" disabled>−</button><output id="quantity" aria-live="polite" aria-label="数量">1</output><button type="button" id="quantity-plus" aria-label="数量を1増やす">＋</button></div></div><div class="total-row"><span>合計 <small>（税込）</small></span><output id="order-total" aria-live="polite">¥680</output></div><div class="button-stack"><button class="btn btn-primary" type="button" id="confirm-order">注文内容を確認する</button><button class="btn btn-secondary" type="button" data-close>LPに戻る</button></div></div><div id="order-confirm" hidden><dl class="confirmation-summary"><div><dt>商品名</dt><dd>PINK BERRY CLOUD</dd></div><div><dt>数量</dt><dd id="confirm-quantity">1個</dd></div><div><dt>合計（税込）</dt><dd id="confirm-total">¥680</dd></div></dl><p class="demo-note">こちらはデモのため、実際の注文・決済は行われません。</p><div class="button-stack" style="margin-top:22px"><button class="btn btn-secondary" type="button" id="edit-order">数量を変更する</button><button class="btn btn-primary" type="button" data-close>LPに戻る</button></div></div></div></dialog>
+
+  <dialog id="campaign-dialog" aria-labelledby="campaign-dialog-title" aria-describedby="campaign-dialog-description"><button class="dialog-close" type="button" data-close aria-label="キャンペーンのご案内を閉じる">×</button><div class="dialog-content campaign-dialog"><svg class="gift-icon" aria-hidden="true"><use href="#icon-gift"/></svg><h2 id="campaign-dialog-title" tabindex="-1">THANK YOU FOR<br>YOUR INTEREST ♡</h2><p id="campaign-dialog-description" style="margin-top:17px">キャンペーンに興味を持っていただき、<br>ありがとうございます。</p><h3>応募方法（イメージ）</h3><div class="modal-steps"><div><span>STEP 01</span>公式Instagramをフォロー</div><div><span>STEP 02</span>キャンペーン対象投稿に「いいね」</div></div><h3>デモサイトのご案内</h3><p>こちらはポートフォリオ用に制作した<br>架空のキャンペーンサイトです。</p><p>実際の応募受付やプレゼントの抽選は<br>行っておりません。</p><button class="btn btn-primary" type="button" data-close>LPに戻る</button></div></dialog>
+
+  <script>
+  (() => {
+    'use strict';
+    const lp = document.querySelector('.lp');
+    const desktop = window.matchMedia('(min-width: 1024px)');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const menuButton = document.querySelector('.menu-toggle');
+    const menu = document.querySelector('#site-nav');
+    const dialogs = { order: document.querySelector('#order-dialog'), campaign: document.querySelector('#campaign-dialog') };
+    let activeDialog = null;
+    let opener = null;
+    let scrollLock = null;
+    let quantity = 1;
+    let revealObserver = null;
+    let floatingObserver = null;
+    const money = value => '¥' + value.toLocaleString('ja-JP');
+    const pagePosition = () => desktop.matches ? lp.scrollTop : window.scrollY;
+
+    function closeMenu(returnFocus = false) {
+      menu.hidden = true;
+      menuButton.setAttribute('aria-expanded', 'false');
+      menuButton.setAttribute('aria-label', 'メニューを開く');
+      if (returnFocus) menuButton.focus({ preventScroll: true });
+    }
+    menuButton.addEventListener('click', () => {
+      const opening = menu.hidden;
+      menu.hidden = !opening;
+      menuButton.setAttribute('aria-expanded', String(opening));
+      menuButton.setAttribute('aria-label', opening ? 'メニューを閉じる' : 'メニューを開く');
+    });
+    document.addEventListener('click', event => {
+      if (!menu.hidden && !menu.contains(event.target) && !menuButton.contains(event.target)) closeMenu();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !activeDialog && !menu.hidden) closeMenu(true);
+    });
+
+    function goToSection(target, focus = true) {
+      const behavior = reduced.matches ? 'instant' : 'smooth';
+      const offset = Math.max(0, target.getBoundingClientRect().top + pagePosition() - (desktop.matches ? lp.getBoundingClientRect().top : 0) - 18);
+      (desktop.matches ? lp : window).scrollTo({ top: target.id === 'hero' ? 0 : offset, behavior });
+      if (focus) {
+        const focusTarget = target.querySelector('h1, h2') || target;
+        if (!focusTarget.hasAttribute('tabindex')) focusTarget.setAttribute('tabindex', '-1');
+        focusTarget.focus({ preventScroll: true });
+      }
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', event => {
+        const id = link.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        if (!target) return;
+        event.preventDefault();
+        closeMenu();
+        goToSection(target);
+      });
+    });
+
+    function lockScroll() {
+      scrollLock = { windowY: window.scrollY, lpY: lp.scrollTop, bodyStyle: document.body.getAttribute('style'), lpStyle: lp.getAttribute('style') };
+      if (!desktop.matches) {
+        document.body.style.position = 'fixed';
+        document.body.style.top = '-' + scrollLock.windowY + 'px';
+        document.body.style.width = '100%';
+        document.body.style.overflow = 'hidden';
+      }
+      lp.style.overflowY = 'hidden';
+    }
+    function restoreAttribute(element, name, value) {
+      if (value === null) element.removeAttribute(name); else element.setAttribute(name, value);
+    }
+    function unlockScroll() {
+      if (!scrollLock) return;
+      restoreAttribute(document.body, 'style', scrollLock.bodyStyle);
+      restoreAttribute(lp, 'style', scrollLock.lpStyle);
+      lp.scrollTop = scrollLock.lpY;
+      window.scrollTo({ top: scrollLock.windowY, behavior: 'instant' });
+      scrollLock = null;
+    }
+    function updateQuantity() {
+      document.querySelector('#quantity').value = quantity;
+      document.querySelector('#order-total').value = money(quantity * 680);
+      document.querySelector('#quantity-minus').disabled = quantity <= 1;
+      document.querySelector('#quantity-plus').disabled = quantity >= 99;
+      document.querySelector('#confirm-quantity').textContent = quantity + '個';
+      document.querySelector('#confirm-total').textContent = money(quantity * 680);
+    }
+    function showOrderStep(confirming, focus = true) {
+      document.querySelector('#order-edit').hidden = confirming;
+      document.querySelector('#order-confirm').hidden = !confirming;
+      document.querySelector('#order-title').textContent = confirming ? '注文内容の確認（デモ）' : 'モバイルオーダー体験（デモ）';
+      if (focus) {
+        dialogs.order.scrollTop = 0;
+        document.querySelector('#order-title').focus({ preventScroll: true });
+      }
+    }
+    document.querySelectorAll('[data-open]').forEach(button => {
+      button.addEventListener('click', () => {
+        if (activeDialog) return;
+        opener = button;
+        activeDialog = dialogs[button.dataset.open];
+        if (button.dataset.open === 'order') { quantity = 1; updateQuantity(); showOrderStep(false, false); }
+        closeMenu();
+        lockScroll();
+        activeDialog.showModal();
+        activeDialog.scrollTop = 0;
+        activeDialog.querySelector('h2').focus({ preventScroll: true });
+      });
+    });
+    Object.values(dialogs).forEach(dialog => {
+      dialog.querySelectorAll('[data-close]').forEach(button => button.addEventListener('click', () => dialog.close()));
+      dialog.addEventListener('click', event => {
+        if (event.target !== dialog) return;
+        const bounds = dialog.getBoundingClientRect();
+        if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close();
+      });
+      dialog.addEventListener('close', () => {
+        activeDialog = null;
+        unlockScroll();
+        if (opener && opener.isConnected) opener.focus({ preventScroll: true });
+      });
+    });
+    document.querySelector('#quantity-minus').addEventListener('click', () => { quantity = Math.max(1, quantity - 1); updateQuantity(); });
+    document.querySelector('#quantity-plus').addEventListener('click', () => { quantity = Math.min(99, quantity + 1); updateQuantity(); });
+    document.querySelector('#confirm-order').addEventListener('click', () => showOrderStep(true));
+    document.querySelector('#edit-order').addEventListener('click', () => showOrderStep(false));
+
+    function setupMotion() {
+      if (revealObserver) revealObserver.disconnect();
+      if (floatingObserver) floatingObserver.disconnect();
+      const reveals = document.querySelectorAll('.reveal');
+      if (reduced.matches || !('IntersectionObserver' in window)) {
+        document.documentElement.classList.remove('motion-ready');
+        reveals.forEach(element => element.classList.add('is-visible'));
+        return;
+      }
+      try {
+        const options = { root: desktop.matches ? lp : null, threshold: .07, rootMargin: '0px 0px -12px 0px' };
+        revealObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) { entry.target.classList.add('is-visible'); revealObserver.unobserve(entry.target); }
+          });
+        }, options);
+        floatingObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => entry.target.classList.toggle('in-view', entry.isIntersecting));
+        }, { root: options.root, threshold: 0 });
+        document.documentElement.classList.add('motion-ready');
+        reveals.forEach(element => { if (!element.classList.contains('is-visible')) revealObserver.observe(element); });
+        document.querySelectorAll('section, .feature-card').forEach(element => floatingObserver.observe(element));
+      } catch (error) { document.documentElement.classList.remove('motion-ready'); }
+    }
+    /* Retain reading position across the change of scroll containers. */
+    let lastDesktop = desktop.matches;
+    let savedReadingPosition = pagePosition();
+    function rememberPosition() { if (!scrollLock && desktop.matches === lastDesktop) savedReadingPosition = pagePosition(); }
+    lp.addEventListener('scroll', rememberPosition, { passive: true });
+    window.addEventListener('scroll', rememberPosition, { passive: true });
+    document.querySelectorAll('.side').forEach(side => {
+      side.addEventListener('wheel', event => {
+        if (!desktop.matches || activeDialog || event.ctrlKey || event.metaKey || !event.deltaY) return;
+        const unit = event.deltaMode === 1 ? 20 : event.deltaMode === 2 ? lp.clientHeight : 1;
+        event.preventDefault();
+        lp.scrollTop += event.deltaY * unit;
+      }, { passive: false });
+    });
+    desktop.addEventListener('change', () => {
+      if (activeDialog) activeDialog.close();
+      const position = savedReadingPosition;
+      lastDesktop = desktop.matches;
+      if (desktop.matches) { window.scrollTo({ top: 0, behavior: 'instant' }); lp.scrollTop = position; }
+      else { lp.scrollTop = 0; window.scrollTo({ top: position, behavior: 'instant' }); }
+      savedReadingPosition = position;
+      setupMotion();
+    });
+    reduced.addEventListener('change', setupMotion);
+    setupMotion();
+    updateQuantity();
+    if (location.hash) {
+      const target = document.getElementById(location.hash.slice(1));
+      if (target) requestAnimationFrame(() => goToSection(target, false));
+    }
+  })();
+  </script>
+</body>
+</html>
